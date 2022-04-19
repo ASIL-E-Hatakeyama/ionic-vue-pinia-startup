@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "ionic-vue-pinia-startup",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}
