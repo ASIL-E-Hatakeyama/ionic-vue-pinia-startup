@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-content>
-      <Card style="width: 90vw; margin: 20% auto">
+      <Card style="width: 90vw; margin: 50px auto">
         <template #header>
           <div style="text-align: center">
             <img
@@ -37,7 +37,7 @@
           <div style="text-align: center">
             <Button
               icon=" pi pi-check"
-              label="Save"
+              label="Login"
               @click="doLogin"
               :disabled="!isClickBtn"
             />
@@ -86,7 +86,7 @@ onIonViewWillEnter(() => {
 const doLogin = async () => {
   if (await appStore.login(inputForm.loginId, inputForm.password)) {
     reset();
-    router.push("/folder");
+    router.push("/top");
   } else {
     const alert = await alertController.create({
       header: "エラー",

@@ -6,7 +6,7 @@
         <h2>Page Not Found</h2>
         <h3>お探しのページがありません</h3>
         <h6>
-          <router-link to="/">ログインページ</router-link
+          <router-link to="/login">ログインページ</router-link
           >より再度操作をお願いします。
         </h6>
       </div>

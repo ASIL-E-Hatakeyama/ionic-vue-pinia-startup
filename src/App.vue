@@ -1,35 +1,36 @@
 <template>
   <ion-app>
-    <ion-split-pane content-id="main-content">
-      <ion-menu content-id="main-content" type="overlay">
-        <ion-content>
-          <ion-list id="inbox-list">
-            <ion-list-header>Inbox</ion-list-header>
-            <ion-note>hi@ionicframework.com</ion-note>
-            <ion-menu-toggle
-              auto-hide="false"
-              v-for="(p, i) in appPages"
-              :key="i"
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+    <ion-menu
+      content-id="main-content"
+      type="overlay"
+      :swipeGesture="false"
+      v-if="isLogined"
+    >
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-list-header>{{ store.userName }}</ion-list-header>
+          <ion-note>hi@ionicframework.com</ion-note>
+          <ion-menu-toggle
+            :autoHide="false"
+            v-for="(p, i) in appPages"
+            :key="i"
+          >
+            <ion-item
+              @click="selectedIndex = i"
+              router-direction="root"
+              :router-link="p.url"
+              lines="none"
+              detail="false"
+              class="hydrated"
+              :class="{ selected: selectedIndex === i }"
             >
-              <ion-item
-                @click="selectedIndex = i"
-                router-direction="root"
-                :router-link="p.url"
-                lines="none"
-                detail="false"
-                class="hydrated"
-                :class="{ selected: selectedIndex === i }"
-              >
-                <ion-icon
-                  slot="start"
-                  :ios="p.iosIcon"
-                  :md="p.mdIcon"
-                ></ion-icon>
-                <ion-label>{{ p.title }}</ion-label>
-              </ion-item>
-            </ion-menu-toggle>
-          </ion-list>
-          <ion-list id="labels-list">
+              <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+        <!-- <ion-list id="labels-list">
             <ion-list-header>Labels</ion-list-header>
             <ion-item
               v-for="(label, index) in labels"
@@ -43,11 +44,9 @@
               ></ion-icon>
               <ion-label>{{ label }}</ion-label>
             </ion-item>
-          </ion-list>
-        </ion-content>
-      </ion-menu>
-      <ion-router-outlet id="main-content"></ion-router-outlet>
-    </ion-split-pane>
+          </ion-list> -->
+      </ion-content>
+    </ion-menu>
   </ion-app>
 </template>
 <script lang="ts" setup>
@@ -81,7 +80,10 @@ import {
   warningOutline,
   warningSharp,
 } from "ionicons/icons";
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useAppStore } from "@/store/index";
+const store = useAppStore();
+const isLogined = computed(() => store.idLogined);
 
 const selectedIndex = ref(0);
 const appPages = [
@@ -90,36 +92,6 @@ const appPages = [
     url: "/folder/Inbox",
     iosIcon: mailOutline,
     mdIcon: mailSharp,
-  },
-  {
-    title: "Outbox",
-    url: "/folder/Outbox",
-    iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp,
-  },
-  {
-    title: "Favorites",
-    url: "/folder/Favorites",
-    iosIcon: heartOutline,
-    mdIcon: heartSharp,
-  },
-  {
-    title: "Archived",
-    url: "/folder/Archived",
-    iosIcon: archiveOutline,
-    mdIcon: archiveSharp,
-  },
-  {
-    title: "Trash",
-    url: "/folder/Trash",
-    iosIcon: trashOutline,
-    mdIcon: trashSharp,
-  },
-  {
-    title: "Spam",
-    url: "/folder/Spam",
-    iosIcon: warningOutline,
-    mdIcon: warningSharp,
   },
   {
     title: "404",

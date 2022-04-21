@@ -1,22 +1,29 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { useAppStore } from "@/store/index";
 import { RouteRecordRaw } from "vue-router";
-import LoginPage from "@/views/login/LoginPage.vue";
+import InitPage from "@/views/InitPage.vue";
 import Err404Page from "@/views/errors/Err404Page.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "",
-    redirect: "/login",
+    component: () => InitPage,
     meta: {
       isLogined: false,
     },
   },
   {
     path: "/login",
-    component: () => LoginPage,
+    component: () => import("../views/login/LoginPage.vue"),
     meta: {
       isLogined: false,
+    },
+  },
+  {
+    path: "/top",
+    component: () => import("../views/top/TopPage.vue"),
+    meta: {
+      isLogined: true,
     },
   },
   {
@@ -28,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/folder/:id",
-    component: () => import("../views/FolderPage.vue"),
+    component: () => import("../views/top/TopPage.vue"),
     meta: {
       isLogined: true,
     },
@@ -50,13 +57,14 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const store = useAppStore();
   if (to.meta.isLogined) {
-    if (store.token) {
+    if (store.idLogined) {
       next();
     } else {
-      next("/");
+      next("/login");
     }
+  } else {
+    next();
   }
-  next();
 });
 
 export default router;
