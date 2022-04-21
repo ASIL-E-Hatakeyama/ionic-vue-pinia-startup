@@ -1,0 +1,252 @@
+<template>
+  <ion-page>
+    <!-- ヘッダー -->
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button slot="start" menu="startMenu" />
+        </ion-buttons>
+        <ion-title>TOP</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <!-- コンテンツ -->
+    <ion-content ref="content"></ion-content>
+    <!-- フッター -->
+    <ion-footer></ion-footer>
+  </ion-page>
+</template>
+
+<script setup lang="ts">
+import {
+  AccordionGroupChangeEventDetail,
+  AccordionGroupCustomEvent,
+  ActionSheetButton,
+  ActionSheetOptions,
+  AlertButton,
+  AlertInput,
+  AlertInputAttributes,
+  AlertOptions,
+  AlertTextareaAttributes,
+  Animation,
+  AnimationBuilder,
+  AnimationCallbackOptions,
+  AnimationDirection,
+  AnimationFill,
+  AnimationKeyFrames,
+  AnimationLifecycle,
+  BackButtonEvent,
+  BreadcrumbCollapsedClickEventDetail,
+  BreadcrumbCustomEvent,
+  CheckboxChangeEventDetail,
+  CheckboxCustomEvent,
+  DatetimeChangeEventDetail,
+  DatetimeCustomEvent,
+  Gesture,
+  GestureConfig,
+  GestureDetail,
+  InfiniteScrollCustomEvent,
+  InputChangeEventDetail,
+  InputCustomEvent,
+  IonAccordion,
+  IonAccordionGroup,
+  IonAvatar,
+  IonBackButton,
+  IonBackdrop,
+  IonBadge,
+  IonBreadcrumb,
+  IonBreadcrumbs,
+  IonButton,
+  IonButtons,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonCheckbox,
+  IonChip,
+  IonCol,
+  IonContent,
+  IonDatetime,
+  IonFab,
+  IonFabButton,
+  IonFabList,
+  IonFooter,
+  IonGrid,
+  IonHeader,
+  IonIcon,
+  IonImg,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
+  IonInput,
+  IonItem,
+  IonItemDivider,
+  IonItemGroup,
+  IonItemOption,
+  IonItemOptions,
+  IonItemSliding,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonLoading,
+  IonMenu,
+  IonMenuButton,
+  IonMenuToggle,
+  IonModal,
+  IonNav,
+  IonNavLink,
+  IonNote,
+  IonPage,
+  IonPopover,
+  IonProgressBar,
+  IonRadio,
+  IonRadioGroup,
+  IonRange,
+  IonRefresher,
+  IonRefresherContent,
+  IonReorder,
+  IonReorderGroup,
+  IonRippleEffect,
+  IonRouterOutlet,
+  IonRow,
+  IonSearchbar,
+  IonSegment,
+  IonSegmentButton,
+  IonSelect,
+  IonSelectOption,
+  IonSkeletonText,
+  IonSlide,
+  IonSlides,
+  IonSpinner,
+  IonSplitPane,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+  IonText,
+  IonTextarea,
+  IonThumbnail,
+  IonTitle,
+  IonToggle,
+  IonToolbar,
+  IonVirtualScroll,
+  IonicSafeString,
+  IonicSlides,
+  IonicSwiper,
+  ItemReorderCustomEvent,
+  ItemReorderEventDetail,
+  ItemSlidingCustomEvent,
+  LoadingOptions,
+  MenuCustomEvent,
+  ModalOptions,
+  NavComponentWithProps,
+  NavCustomEvent,
+  PickerButton,
+  PickerColumn,
+  PickerColumnOption,
+  PickerOptions,
+  PlatformConfig,
+  Platforms,
+  PopoverOptions,
+  RadioGroupChangeEventDetail,
+  RadioGroupCustomEvent,
+  RefresherCustomEvent,
+  RefresherEventDetail,
+  RouterCustomEvent,
+  RouterEventDetail,
+  ScrollBaseCustomEvent,
+  ScrollBaseDetail,
+  ScrollCustomEvent,
+  ScrollDetail,
+  SearchbarChangeEventDetail,
+  SearchbarCustomEvent,
+  SegmentChangeEventDetail,
+  SegmentCustomEvent,
+  SelectChangeEventDetail,
+  SelectCustomEvent,
+  SpinnerTypes,
+  TabsCustomEvent,
+  TextareaChangeEventDetail,
+  TextareaCustomEvent,
+  ToastButton,
+  ToastOptions,
+  ToggleChangeEventDetail,
+  ToggleCustomEvent,
+  UseIonRouterResult,
+  UseKeyboardResult,
+  actionSheetController,
+  alertController,
+  createAnimation,
+  createGesture,
+  getPlatforms,
+  getTimeGivenProgression,
+  iosTransitionAnimation,
+  isPlatform,
+  loadingController,
+  mdTransitionAnimation,
+  menuController,
+  modalController,
+  onIonViewDidEnter,
+  onIonViewDidLeave,
+  onIonViewWillEnter,
+  onIonViewWillLeave,
+  pickerController,
+  popoverController,
+  toastController,
+  useBackButton,
+  useIonRouter,
+  useKeyboard,
+} from "@ionic/vue"; // 全コンポーネントを記載したので、実装完了時にコメントアウト or 削除を行うこと
+import {
+  personOutline, // アイコンのKeyを追加していく
+} from "ionicons/icons";
+import { useAppStore } from "@/store/index";
+import { ref, computed, defineProps, PropType, watch } from "vue";
+
+// Store
+const store = useAppStore();
+// Router
+const router = useIonRouter();
+
+// Props定義
+// const props = defineProps({
+//     userInfo: { // Key名
+//         type: Object as PropType<UserInfo>, // 変数の型
+//         required: true, // 必須かどうか
+//     }
+// });
+
+// Ref書き方
+// const test = ref<string>("");
+const content = ref(); // ion-contentの情報を保持
+
+// computed書き方
+// 主にStoreの値などを参照する際に使用する
+// const isShowLoading = computed(() => store.state.isShowLoading);
+
+// watch書き方
+// 値が変わったかどうか
+// watch(() => props.userInfo.isLoading, (newVal, oldVal) => {
+//   isLoading.value = newVal;
+// });
+// watch(() => 参照する変数(prop や ref), (newVal, oldVal) => {
+//   isLoading.value = newVal;
+// });
+
+// XXX メソッドの定義
+// 画面表示前処理
+onIonViewWillEnter(() => console.log("onIonViewWillEnter"));
+// 画面表示後処理
+onIonViewDidEnter(() => console.log("onIonViewDidEnter"));
+// 画面遷移前処理
+onIonViewWillLeave(() => console.log("onIonViewWillLeave"));
+// 画面遷移後処理
+onIonViewDidLeave(() => console.log("onIonViewDidLeave"));
+// スクロールTOP(Sample実装)
+const scrollTop = () => {
+  content.value.$el.scrollToTop();
+};
+</script>
+
+<!-- ライブラリの深いところまで変える場合(例：ion-page 内の .XXXX の値を変えたい時などに利用) -->
+<style lang="scss" deep></style>
+<!-- この画面内だけのスタイルを変えたい時 -->
+<style lang="scss" scoped></style>
