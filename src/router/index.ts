@@ -27,6 +27,13 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: "/video",
+    component: () => import("../views/video/VideoPage.vue"),
+    meta: {
+      isLogined: true,
+    },
+  },
+  {
     path: "/folder",
     redirect: "/folder/Inbox",
     meta: {

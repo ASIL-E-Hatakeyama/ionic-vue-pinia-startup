@@ -30,26 +30,12 @@
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
-        <!-- <ion-list id="labels-list">
-            <ion-list-header>Labels</ion-list-header>
-            <ion-item
-              v-for="(label, index) in labels"
-              lines="none"
-              :key="index"
-            >
-              <ion-icon
-                slot="start"
-                :ios="bookmarkOutline"
-                :md="bookmarkSharp"
-              ></ion-icon>
-              <ion-label>{{ label }}</ion-label>
-            </ion-item>
-          </ion-list> -->
       </ion-content>
     </ion-menu>
   </ion-app>
 </template>
 <script lang="ts" setup>
+import { useAppStore } from "@/store/index";
 import {
   IonApp,
   IonContent,
@@ -62,26 +48,14 @@ import {
   IonMenuToggle,
   IonNote,
   IonRouterOutlet,
-  IonSplitPane,
 } from "@ionic/vue";
 import {
-  archiveOutline,
-  archiveSharp,
-  bookmarkOutline,
-  bookmarkSharp,
-  heartOutline,
-  heartSharp,
   mailOutline,
   mailSharp,
-  paperPlaneOutline,
-  paperPlaneSharp,
-  trashOutline,
-  trashSharp,
   warningOutline,
   warningSharp,
 } from "ionicons/icons";
-import { ref, computed } from "vue";
-import { useAppStore } from "@/store/index";
+import { computed, ref } from "vue";
 const store = useAppStore();
 const isLogined = computed(() => store.idLogined);
 
@@ -94,13 +68,18 @@ const appPages = [
     mdIcon: mailSharp,
   },
   {
+    title: "Video",
+    url: "/video",
+    iosIcon: mailOutline,
+    mdIcon: mailSharp,
+  },
+  {
     title: "404",
     url: "/404",
     iosIcon: warningOutline,
     mdIcon: warningSharp,
   },
 ];
-const labels = ["Family", "Friends", "Notes", "Work", "Travel", "Reminders"];
 
 const path = window.location.pathname.split("folder/")[1];
 if (path !== undefined) {
