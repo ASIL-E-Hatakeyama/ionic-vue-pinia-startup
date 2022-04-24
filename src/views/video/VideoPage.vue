@@ -58,13 +58,14 @@ import {
 } from "@ionic/vue";
 import { settingsOutline } from "ionicons/icons";
 import { ref } from "vue";
-const myStream = ref(null);
+const myStream = ref<MediaStream>();
 const connectMyCamera = async () => {
   const deviceInfos = await navigator.mediaDevices.enumerateDevices();
   if (!deviceInfos || deviceInfos.length === 0) {
     alert("使えるデバイスがありません。");
     return;
   }
+
   const videoInfos = deviceInfos.filter((info) => info.kind === "videoinput");
   if (!videoInfos || videoInfos.length === 0) {
     alert("使えるデバイスがありません。");
@@ -84,7 +85,7 @@ const stopMyCamera = async () => {
   if (myStream.value) {
     let tracks = myStream.value.getTracks();
     tracks.forEach((track) => track.stop());
-    myStream.value = null;
+    myStream.value = undefined;
   }
 };
 </script>

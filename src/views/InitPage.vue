@@ -7,15 +7,15 @@
 <script lang="ts" setup>
 import router from "@/router/index";
 import { useAppStore } from "@/store/index";
-import { IonContent, IonPage, onIonViewWillEnter } from "@ionic/vue";
+import { IonContent, IonPage, onIonViewDidEnter } from "@ionic/vue";
 
 const appStore = useAppStore();
 // 初期起動時の画面制御
-onIonViewWillEnter(() => {
+onIonViewDidEnter(() => {
   // TODO ログイン済みなら初期画面
   // 未ログインならログイン画面
   appStore
     .initLoginCheck()
-    .then((isLogined) => router.replace(isLogined ? "/folder" : "/"));
+    .then((isLogined) => router.replace(isLogined ? "/top" : "/login"));
 });
 </script>

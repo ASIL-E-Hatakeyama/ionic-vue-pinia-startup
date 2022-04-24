@@ -35,7 +35,6 @@ const app = createApp(App)
   .use(router)
   .use(createPinia())
   .use(PrimeVue);
-
 router.isReady().then(() => {
   app.mount("#app");
 });

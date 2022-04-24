@@ -1,8 +1,10 @@
-import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { useAppStore } from "@/store/index";
-import { RouteRecordRaw } from "vue-router";
-import InitPage from "@/views/InitPage.vue";
 import Err404Page from "@/views/errors/Err404Page.vue";
+import InitPage from "@/views/InitPage.vue";
+import LoginPage from "@/views/login/LoginPage.vue";
+import TopPage from "@/views/top/TopPage.vue";
+import { createRouter, createWebHistory } from "@ionic/vue-router";
+import { RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -14,14 +16,14 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/login",
-    component: () => import("../views/login/LoginPage.vue"),
+    component: () => LoginPage,
     meta: {
       isLogined: false,
     },
   },
   {
     path: "/top",
-    component: () => import("../views/top/TopPage.vue"),
+    component: () => TopPage,
     meta: {
       isLogined: true,
     },
@@ -63,7 +65,9 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const store = useAppStore();
-  if (to.meta.isLogined) {
+  if (to.fullPath === "/") {
+    next();
+  } else if (to.meta.isLogined) {
     if (store.idLogined) {
       next();
     } else {

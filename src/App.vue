@@ -29,6 +29,16 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-menu-toggle :autoHide="false">
+            <ion-item
+              lines="none"
+              detail="false"
+              class="hydrated"
+              @click="doLogout"
+            >
+              <ion-label>Logout</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
         </ion-list>
       </ion-content>
     </ion-menu>
@@ -48,6 +58,7 @@ import {
   IonMenuToggle,
   IonNote,
   IonRouterOutlet,
+  alertController,
 } from "@ionic/vue";
 import {
   mailOutline,
@@ -56,6 +67,7 @@ import {
   warningSharp,
 } from "ionicons/icons";
 import { computed, ref } from "vue";
+import router from "./router";
 const store = useAppStore();
 const isLogined = computed(() => store.idLogined);
 
@@ -87,6 +99,25 @@ if (path !== undefined) {
     (page) => page.title.toLowerCase() === path.toLowerCase()
   );
 }
+
+const doLogout = async () => {
+  const alert = await alertController.create({
+    message: "ログアウトしますがよろしいですか？",
+    buttons: [
+      {
+        text: "OK",
+        handler: async () => {
+          await store.logout();
+          router.replace("/");
+        },
+      },
+      {
+        text: "Cancel",
+      },
+    ],
+  });
+  alert.present();
+};
 </script>
 
 <style scoped lang="scss">
